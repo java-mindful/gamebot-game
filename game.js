@@ -67,13 +67,21 @@ function updateGame() {
     }
 }
 
+function getUserIdFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("user_id");
+}
+
+const userId = getUserIdFromUrl(); // Get the user_id from the URL
 function submitScore() {
+    const userId = getUserIdFromUrl(); // Get the user_id
+
     const botUrl = "https://api.telegram.org/bot6573180797:AAF4eDt3XdDsV0RBxm4ewt2btNe0bW_tTag/setGameScore";
     fetch(botUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-            user_id: "<USER_ID>",
+            user_id: userId, // Send the user_id with the score
             score: score,
             force: true
         })
